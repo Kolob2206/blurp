@@ -132,7 +132,7 @@ step "run-a-script-ps-in-var" {
             Octopus.Action.Script.ScriptBody = <<-EOT
                 Write-host "--------------------------------"
                 Write-host #{value}
-                Write-host "--------------------------------"
+                Write-host "--------------------------------"asdf
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
