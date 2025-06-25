@@ -1,0 +1,60 @@
+variable "OctopusPrintEvaluatedVariables" {
+    value "True" {}
+}
+
+variable "OctopusPrintVariables" {
+    value "True" {}
+}
+
+variable "powershell" {
+    value {
+        value = <<-EOT
+                Write-Output $useWindowsAuth
+                if ($useWindowsAuth) {
+                  Write-Output "WindowsAuth"
+                } else {
+                  Write-Output "NoWindowsAuth"
+                }
+                EOT
+    }
+}
+
+variable "prompted" {
+    value {
+        prompt {
+            description = ""
+            display_settings = {
+                Octopus.ControlType = "Select"
+                Octopus.SelectOptions = <<-EOT
+                    True|True
+                    False|False
+                    EOT
+            }
+            label = ""
+            required = true
+        }
+    }
+}
+
+variable "value" {
+    value "#{if prompted == \"True\"}True Value#{else}False Value#{/if}" {}
+}
+
+variable "variable" {
+    value "True" {
+        environment = ["test"]
+    }
+
+    value "False" {
+        description = ""
+        environment = ["development"]
+    }
+}
+
+variable "version" {
+    value "1.0.2" {}
+}
+
+variable "WebhookUrl" {
+    value "URLValue" {}
+}
