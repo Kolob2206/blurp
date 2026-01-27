@@ -47,7 +47,7 @@ variable "variable" {
 
     value "False" {
         description = ""
-        environment = ["development"]
+        environment = ["development", "qa"]
     }
 }
 
