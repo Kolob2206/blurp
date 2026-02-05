@@ -18,10 +18,10 @@ step "run-a-script-ps-in-var" {
 
 process_template "run-a-process-template" {
     name = "Run a Process Template"
-    process_template_slug = "delete-me"
+    process_template_slug = "to-be-deleted"
     version_mask = "1.X"
 
-    parameter "workerpool" {
+    parameter "worker-pool" {
         value = "WorkerPools-1595"
     }
 }
