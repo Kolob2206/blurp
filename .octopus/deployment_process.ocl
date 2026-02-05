@@ -101,6 +101,7 @@ step "send-an-email" {
             Octopus.Action.Email.Body = "This is the email body"
             Octopus.Action.Email.Subject = "This is the email subject"
             Octopus.Action.Email.ToTeamIds = "global/octopus-managers"
+            Octopus.Action.RunOnServer = "false"
         }
     }
 }
@@ -115,27 +116,25 @@ step "email-time" {
             Octopus.Action.Email.Body = "This is the body"
             Octopus.Action.Email.Subject = "This is the subject"
             Octopus.Action.Email.ToTeamIds = "global/octopus-managers"
+            Octopus.Action.RunOnServer = "false"
         }
     }
 }
 
 step "run-a-script-ps-in-var" {
     name = "Run a Script PS in Var"
-    properties = {
-        Octopus.Action.TargetRoles = "single,dummy"
-    }
 
     action {
         action_type = "Octopus.Script"
         properties = {
-            Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptBody = <<-EOT
                 Write-host "--------------------------------"
                 Write-host #{value}
-                Write-host "--------------------------------"asdf
+                Write-host "--------------------------------"
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
         }
+        worker_pool = "azure-workers"
     }
 }
