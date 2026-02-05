@@ -1,126 +1,3 @@
-step "run-a-script" {
-    name = "Run a Script"
-
-    action {
-        action_type = "Octopus.Script"
-        is_disabled = true
-        properties = {
-            Octopus.Action.Script.ScriptBody = <<-EOT
-                WEBHOOK_URL=$(get_octopusvariable "WebhookUrl")
-                echo "value is: $WEBHOOK_URL"
-                EOT
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "Bash"
-            OctopusUseBundledTooling = "False"
-        }
-        worker_pool = "hosted-ubuntu"
-
-        container {
-            feed = "dockerhub"
-            image = "octopusdeploy/worker-tools:5.2.0-ubuntu.22.04"
-        }
-    }
-}
-
-step "step-template-script" {
-    name = "Step Template Script"
-    properties = {
-        Octopus.Action.TargetRoles = "offline"
-    }
-
-    action {
-        is_disabled = true
-        properties = {
-            Octopus.Action.RunOnServer = "false"
-            Octopus.Action.Template.Id = "ActionTemplates-2521"
-            Octopus.Action.Template.Version = "15"
-            Package = "{\"PackageId\":\"AAO.Core.SSO\",\"FeedId\":\"octopus-server-built-in\"}"
-            Parameter1 = "default"
-        }
-        worker_pool_variable = ""
-
-        packages "blurp" {
-            acquisition_location = "Server"
-            feed = "octopus-server-built-in"
-            package_id = "AAO.Core.SSO"
-            properties = {
-                Extract = "True"
-                PackageParameterName = "Package"
-                Purpose = ""
-                SelectionMode = "deferred"
-            }
-        }
-    }
-}
-
-step "run-a-scriptasdf" {
-    name = "Run a Scriptasdf"
-    properties = {
-        Octopus.Action.TargetRoles = "single"
-    }
-
-    action {
-        action_type = "Octopus.Script"
-        is_disabled = true
-        properties = {
-            Octopus.Action.RunOnServer = "false"
-            Octopus.Action.Script.ScriptBody = "write-host 'hello world'"
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "PowerShell"
-        }
-        worker_pool_variable = ""
-    }
-}
-
-step "run-a-scriptsss" {
-    name = "Run a scriptsss"
-    properties = {
-        Octopus.Action.TargetRoles = "single"
-    }
-
-    action {
-        action_type = "Octopus.Script"
-        is_disabled = true
-        properties = {
-            Octopus.Action.RunOnServer = "false"
-            Octopus.Action.Script.ScriptBody = "Write-Host Hello world"
-            Octopus.Action.Script.ScriptSource = "Inline"
-            Octopus.Action.Script.Syntax = "PowerShell"
-        }
-        worker_pool_variable = ""
-    }
-}
-
-step "send-an-email" {
-    name = "Send an Email"
-
-    action {
-        action_type = "Octopus.Email"
-        is_disabled = true
-        properties = {
-            Octopus.Action.Email.Body = "This is the email body"
-            Octopus.Action.Email.Subject = "This is the email subject"
-            Octopus.Action.Email.ToTeamIds = "global/octopus-managers"
-            Octopus.Action.RunOnServer = "false"
-        }
-    }
-}
-
-step "email-time" {
-    name = "Email Time"
-
-    action {
-        action_type = "Octopus.Email"
-        is_disabled = true
-        properties = {
-            Octopus.Action.Email.Body = "This is the body"
-            Octopus.Action.Email.Subject = "This is the subject"
-            Octopus.Action.Email.ToTeamIds = "global/octopus-managers"
-            Octopus.Action.RunOnServer = "false"
-        }
-    }
-}
-
 step "run-a-script-ps-in-var" {
     name = "Run a Script PS in Var"
 
@@ -136,5 +13,15 @@ step "run-a-script-ps-in-var" {
             Octopus.Action.Script.Syntax = "PowerShell"
         }
         worker_pool = "azure-workers"
+    }
+}
+
+process_template "run-a-process-template" {
+    name = "Run a Process Template"
+    process_template_slug = "delete-me"
+    version_mask = "1.X"
+
+    parameter "workerpool" {
+        value = "WorkerPools-1595"
     }
 }
