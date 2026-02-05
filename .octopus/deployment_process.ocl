@@ -138,30 +138,3 @@ step "run-a-script-ps-in-var" {
         worker_pool = "azure-workers"
     }
 }
-
-process_template "run-a-process-template" {
-    name = "Run a Process Template"
-    process_template_slug = "kenny-process-template-example"
-    version_mask = "4.X"
-
-    package_parameter "package_parameter" {
-        feed = "octopus-server-built-in"
-        package_id = "appsettings"
-    }
-
-    parameter "target_tag" {
-        value = "asdf"
-    }
-
-    parameter "channel_parameter" {
-        value = "Channels-5003"
-    }
-
-    parameter "sdfsdf" {
-        value = "aaaaaa"
-    }
-
-    project_parameter "my_project" {
-        value = "Projects-8805"
-    }
-}
