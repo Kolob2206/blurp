@@ -3,6 +3,7 @@ step "run-a-script-ps-in-var" {
 
     action {
         action_type = "Octopus.Script"
+        is_disabled = true
         properties = {
             Octopus.Action.Script.ScriptBody = <<-EOT
                 Write-host "--------------------------------"
