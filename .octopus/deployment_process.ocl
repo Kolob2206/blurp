@@ -25,3 +25,30 @@ process_template "run-a-process-template" {
         value = "WorkerPools-1595"
     }
 }
+
+step "run-a-script" {
+    name = "Run a Script"
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.GitRepository.Source = "External"
+            Octopus.Action.Script.ScriptFileName = "script.ps1"
+            Octopus.Action.Script.ScriptSource = "GitRepository"
+            OctopusUseBundledTooling = "False"
+        }
+        worker_pool = "hosted-ubuntu"
+
+        container {
+            feed = "dockerhub"
+            image = "octopusdeploy/worker-tools:6.5.0-ubuntu.22.04"
+        }
+
+        git_dependencies {
+            default_branch = "main"
+            git_credential_id = "GitCredentials-741"
+            git_credential_type = "Library"
+            repository_uri = "https://github.com/KennethBates/Testing-version-compare.git"
+        }
+    }
+}
