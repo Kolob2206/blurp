@@ -78,3 +78,21 @@ step "git-script" {
         }
     }
 }
+
+step "run-a-script2" {
+    name = "Run a Script2"
+    properties = {
+        Octopus.Action.TargetRoles = "cmd"
+    }
+
+    action {
+        action_type = "Octopus.Script"
+        properties = {
+            Octopus.Action.RunOnServer = "false"
+            Octopus.Action.Script.ScriptBody = "write-host 'hi'"
+            Octopus.Action.Script.ScriptSource = "Inline"
+            Octopus.Action.Script.Syntax = "PowerShell"
+        }
+        worker_pool_variable = ""
+    }
+}
