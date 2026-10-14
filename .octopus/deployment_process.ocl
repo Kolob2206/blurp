@@ -59,7 +59,7 @@ step "run-a-script" {
 step "git-script" {
     name = "Git Script"
     properties = {
-        Octopus.Action.TargetRoles = "single"
+        Octopus.Action.TargetRoles = "cmd"
     }
 
     action {
