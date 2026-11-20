@@ -89,6 +89,8 @@ step "run-a-script2" {
     action {
         action_type = "Octopus.Script"
         properties = {
+            Octopus.Action.AutoRetry.MaximumCount = "3"
+            Octopus.Action.AutoRetry.MinimumBackoff = "15"
             Octopus.Action.RunOnServer = "false"
             Octopus.Action.Script.ScriptBody = "write-host 'hi'"
             Octopus.Action.Script.ScriptSource = "Inline"
@@ -113,6 +115,7 @@ step "deploy-a-package" {
             Octopus.Action.Package.DownloadOnTentacle = "False"
             Octopus.Action.Package.FeedId = "octopus-server-built-in"
             Octopus.Action.Package.PackageId = "builtInFeedPush"
+            Octopus.Action.RunOnServer = "false"
         }
         worker_pool_variable = ""
 
